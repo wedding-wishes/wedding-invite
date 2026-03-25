@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #5a0f2e, #1a1a1a);
+    color: white;
+    text-align: center;
+}
+
+/* Sections */
+section {
+    padding: 20px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    animation: fadeIn 1s ease-in;
+}
+
+/* Headings */
+h1 {
+    margin: 10px 0;
+    color: gold;
+}
+
+h2 {
+    margin: 5px 0 10px;
+    color: gold;
+}
+
+/* Countdown */
+.countdown {
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+/* Card */
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 12px;
+    margin: 10px auto;
+    max-width: 350px;
+    box-shadow: 0 0 10px rgba(255,215,0,0.2);
+}
+
+/* 🔥 Updated Image (Rectangle Frame) */
+img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 12px;
+    border: 3px solid gold;
+    object-fit: cover;
+}
+
+/* Button */
+button {
+    padding: 8px 16px;
+    background: gold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: orange;
+    transform: scale(1.05);
+}
+
+/* Text spacing */
+p {
+    margin: 5px 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🎉 HERO -->
+<section>
+    <h1>Rajendra ❤️ Guddan</h1>
+    <p>Shaadi mein ab sirf...</p>
+    <div class="countdown" id="countdown"></div>
+</section>
+
+<!-- 💑 COUPLE SECTION -->
+<section>
+    <h2>💑 Rajendra ❤️ Guddan</h2>
+    <div class="card">
+        <img src="https://via.placeholder.com/400x300" alt="Couple Photo">
+
+        <p><b>Ek nayi zindagi ki shuruaat...</b></p>
+
+        <p>
+            Rajendra aur Guddan, do alag kahaniyan,  
+            jo ab ek khoobsurat safar mein judne ja rahi hain ❤️
+        </p>
+
+        <p><i>
+            "Do dil, ek bandhan, aur ek nayi kahani...  
+            jahan pyaar hi sab kuch hai ❤️"
+        </i></p>
+    </div>
+</section>
+
+<!-- 💞 QUOTE -->
+<section>
+    <p style="font-size: 1.5rem;">
+        Do parivaaron ka milan, do dilon ka bandhan ❤️<br>
+        Rab ne bana di jodi ❤️<br>
+        Bas aapke aashirwad ki zarurat hai
+    </p>
+</section>
+
+<!-- 📅 DETAILS -->
+<section>
+    <h2>Wedding Details</h2>
+    <p>📅 29 April 2026</p>
+    <p>📍 Saibasi, Fatehpur, Uttar Pradesh</p>
+    <a href="https://www.google.com/maps/place/Saibsi,+Uttar+Pradesh+212663" target="_blank">
+        <button>View Location</button>
+    </a>
+</section>
+
+<!-- 📩 RSVP -->
+<section>
+    <h2>RSVP</h2>
+    <input type="text" placeholder="Your Name"><br><br>
+    <button onclick="alert('Thank you! 😊')">Confirm</button>
+    <p>📞 7068606945</p>
+</section>
+
+<!-- ⏳ COUNTDOWN -->
+<script>
+var weddingDate = new Date("April 29, 2026 00:00:00").getTime();
+
+setInterval(function() {
+
+    var now = new Date().getTime();
+    var distance = weddingDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    var minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+
+    document.getElementById("countdown").innerHTML =
+    days + " Days " + hours + " Hrs " + minutes + " Min";
+
+}, 1000);
+</script>
+
+</body>
+</html>
