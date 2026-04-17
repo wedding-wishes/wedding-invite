@@ -5,170 +5,212 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rajendra ❤️ Gudiya Wedding</title>
 
+<!-- ✅ Social Preview Meta Tags (CORRECT POSITION) -->
 <meta property="og:title" content="Rajendra ❤️ Gudiya Wedding Invitation">
 <meta property="og:description" content="You are invited to celebrate our special day 💍 29 April 2026">
-<meta property="og:image" content="https://wedding-wishes.github.io/wedding-invite/couple.jpg">
-<meta property="og:url" content="https://wedding-wishes.github.io/wedding-invite/">
+<meta property="og:image" content="https://Rajendra-190.github.io/wedding-invite/couple.jpg">
+<meta property="og:url" content="https://Rajendra-190.github.io/wedding-invite/">
 <meta name="twitter:card" content="summary_large_image">
 
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
+    margin: 0;
     font-family: 'Segoe UI', sans-serif;
     background: radial-gradient(circle at top, #5a0f2e, #1a1a1a);
     color: white;
     text-align: center;
 }
 
+/* Sections */
 section {
     padding: 20px 10px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
+    animation: fadeIn 1s ease-in;
 }
 
-h1, h2 { color: gold; margin: 6px 0; }
+/* Headings */
+h1, h2 {
+    color: gold;
+    margin: 10px 0;
+}
 
+/* Countdown */
 .countdown {
-    font-size: 1.4rem;
-    color: #ffd700;
+    font-size: 1.5rem;
 }
 
+/* Card */
 .card {
-    background: rgba(255,255,255,0.07);
-    padding: 14px;
-    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 12px;
     margin: 10px auto;
-    max-width: 320px;
+    max-width: 350px;
+    box-shadow: 0 0 10px rgba(255,215,0,0.2);
 }
 
-.card img {
+/* Image */
+img {
     width: 100%;
-    max-width: 260px;
-    border-radius: 10px;
+    max-width: 300px;
+    border-radius: 12px;
     border: 3px solid gold;
 }
 
+/* Input */
 input {
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 6px;
     border: none;
     width: 200px;
 }
 
+/* Button */
 button {
     padding: 8px 16px;
     background: gold;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
+    cursor: pointer;
     margin-top: 10px;
-    font-weight: bold;
 }
 
+button:hover {
+    background: orange;
+}
+
+/* Text */
+p {
+    margin: 5px 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(15px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* 🌸 Flowers */
 .flower {
     position: fixed;
     top: -50px;
+    font-size: 20px;
     animation: fall linear infinite;
-    z-index: 998;
+    z-index: 999;
 }
 
 @keyframes fall {
-    0% { transform: translateY(-50px); }
-    100% { transform: translateY(100vh); }
+    0% { transform: translateY(-50px); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 YOUR GITHUB MUSIC -->
-<audio id="music" autoplay loop muted playsinline preload="auto">
-    <!-- 🔥 IMPORTANT: update file path if needed -->
-    <source src="https://wedding-wishes.github.io/wedding-invite/music.mp3" type="audio/mpeg">
+<!-- 🎵 Wedding Music -->
+<!-- 🎵 MUSIC -->
+<audio id="music" autoplay loop muted playsinline>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5b3f0bb0b2.mp3" type="audio/mpeg">
 </audio>
 
-<!-- HERO -->
+<!-- 🎉 HERO -->
 <section>
     <h1>Rajendra ❤️ Gudiya Wedding</h1>
-    <p style="color:rgba(255,255,255,0.7)">With love, we invite you 💍</p>
-    <div class="countdown" id="countdown">Loading...</div>
+    <p>With love, we invite you to our special day 💍</p>
+    <p>Shaadi mein ab sirf...</p>
+    <div class="countdown" id="countdown"></div>
 </section>
 
-<!-- COUPLE -->
+<!-- 💑 COUPLE -->
 <section>
     <h2>💑 Rajendra ❤️ Gudiya</h2>
     <div class="card">
-        <img src="couple.jpg.jpeg">
-        <p><b>29 April 2026</b></p>
-        <p>Saibasi, Fatehpur</p>
+        <img src="couple.jpg.jpeg" alt="Couple Photo">
+
+        <p><b>Ek nayi zindagi ki shuruaat...</b></p>
+        
+        <p><i>
+            "Do dil, ek bandhan, aur ek nayi kahani..."
+        </i></p>
     </div>
 </section>
 
-<!-- DETAILS -->
+<!-- 📅 DETAILS -->
 <section>
     <h2>Wedding Details</h2>
     <p>📅 29 April 2026</p>
-    <p>📍 Saibasi, Uttar Pradesh</p>
+    <p>📍 Saibasi, Fatehpur, Uttar Pradesh</p>
+    <a href="https://www.google.com/maps/place/Saibsi,+Uttar+Pradesh+212663" target="_blank">
+        <button>View Location</button>
+    </a>
 </section>
 
-<!-- RSVP -->
+<!-- 📩 RSVP -->
 <section>
     <h2>RSVP</h2>
+
     <input type="text" id="name" placeholder="Enter your name"><br>
+
     <button onclick="sendData()">Confirm</button>
+
     <p id="status"></p>
+
+    <p>📞 7068606945</p>
 </section>
 
 <script>
-// 🎵 AUTO MUSIC (NO BUTTON)
-var audio = document.getElementById("music");
-
-// Try autoplay (muted allowed)
-window.addEventListener("load", function () {
-    audio.play().catch(() => {});
-});
-
-// Unmute on ANY interaction (invisible)
-function unlockAudio() {
-    audio.muted = false;
-    audio.volume = 0.9;
-    audio.play().catch(() => {});
-
-    document.removeEventListener("click", unlockAudio);
-    document.removeEventListener("touchstart", unlockAudio);
-    document.removeEventListener("scroll", unlockAudio);
-}
-
-document.addEventListener("click", unlockAudio);
-document.addEventListener("touchstart", unlockAudio);
-document.addEventListener("scroll", unlockAudio);
-
-// ⏳ Countdown
 var weddingDate = new Date("April 29, 2026 17:00:00").getTime();
 
-setInterval(function () {
+setInterval(function() {
     var now = new Date().getTime();
-    var d = weddingDate - now;
+    var distance = weddingDate - now;
 
-    var days = Math.floor(d / (1000*60*60*24));
-    var hrs = Math.floor((d % (1000*60*60*24)) / (1000*60*60));
+    var days = Math.floor(distance / (1000*60*60*24));
+    var hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    var minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
 
     document.getElementById("countdown").innerHTML =
-        days + " Days " + hrs + " Hrs";
+    days + " Days " + hours + " Hrs " + minutes + " Min";
 }, 1000);
 
-// 📩 RSVP
 function sendData() {
     var name = document.getElementById("name").value;
 
-    if (name === "") {
-        alert("Enter your name");
+    if(name === "") {
+        alert("Please enter your name");
         return;
     }
 
-    document.getElementById("status").innerText = "Thank you 😊";
+    document.getElementById("status").innerText = "Submitting...";
+
+    fetch("https://script.google.com/macros/s/AKfycbyKEnCvr3pxZfqVo6qyzV-zXIlaDOwND99Casoaky4hsICtEqvTIZ5cCRML99XsMV8X/exec", {
+        method: "POST",
+        body: JSON.stringify({ name: name })
+    })
+    .then(res => {
+        document.getElementById("status").innerText = "Thank you! 😊";
+        document.getElementById("name").value = "";
+    })
+    .catch(err => {
+        document.getElementById("status").innerText = "Error! Try again";
+    });
 }
 
-// 🌸 Flowers
-// Falling flowers var flowers = ['🌸','🌺','🌼','🌻','🏵️']; 
-    function createFlower() { var f = document.createElement('div'); f.className = 'flower'; f.innerHTML = flowers[Math.floor(Math.random() * flowers.length)]; f.style.left = Math.random() * window.innerWidth + 'px'; f.style.animationDuration = (3 + Math.random() * 5) + 's'; f.style.fontSize = (14 + Math.random() * 16) + 'px'; document.body.appendChild(f); setTimeout(function () { f.remove(); }, 8000); } setInterval(createFlower, 600); </script> </body> </html>
+// Falling flowers
+var flowers = ['🌸','🌺','🌼','🌻','🏵️'];
+function createFlower() {
+    var f = document.createElement('div');
+    f.className = 'flower';
+    f.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+    f.style.left              = Math.random() * window.innerWidth + 'px';
+    f.style.animationDuration = (3 + Math.random() * 5) + 's';
+    f.style.fontSize          = (14 + Math.random() * 16) + 'px';
+    document.body.appendChild(f);
+    setTimeout(function () { f.remove(); }, 8000);
+}
+setInterval(createFlower, 600);
+</script>
+ 
+</body>
 </html>
