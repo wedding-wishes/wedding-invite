@@ -22,155 +22,255 @@ body {
 }
 
 section {
-    padding: 20px 10px;
+    padding: 22px 12px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     animation: fadeIn 1s ease-in;
 }
 
-h1, h2 {
-    color: gold;
-    margin: 6px 0;
-}
+h1, h2 { color: gold; margin: 8px 0; }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.2rem; }
 
 .countdown {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: #ffd700;
+    margin-top: 8px;
 }
 
 .card {
     background: rgba(255,255,255,0.07);
-    padding: 14px;
+    padding: 16px;
     border-radius: 14px;
-    margin: 10px auto;
-    max-width: 320px;
+    margin: 12px auto;
+    max-width: 340px;
+    box-shadow: 0 0 14px rgba(255,215,0,0.2);
 }
 
 .card img {
     width: 100%;
-    max-width: 260px;
-    border-radius: 10px;
+    max-width: 280px;
+    border-radius: 12px;
     border: 3px solid gold;
+    margin-bottom: 10px;
 }
 
-input {
-    padding: 8px;
+p { margin: 5px 0; }
+
+#music-hint {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(90,15,46,0.97);
+    color: gold;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 10px;
+    z-index: 9999;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid gold;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%,100% { opacity: 1; }
+    50%      { opacity: 0.7; }
+}
+
+.music-btn {
+    padding: 10px 24px;
+    background: linear-gradient(135deg, gold, orange);
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #5a0f2e;
+    margin: 10px auto;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+.music-btn:hover { transform: scale(1.05); }
+
+input[type="text"] {
+    padding: 9px 14px;
     border-radius: 8px;
     border: none;
-    width: 200px;
+    width: 220px;
+    font-size: 0.95rem;
+    outline: none;
+    margin-top: 6px;
 }
 
-button {
-    padding: 8px 16px;
+.rsvp-btn, .loc-btn {
+    padding: 9px 20px;
     background: gold;
     border: none;
     border-radius: 10px;
+    cursor: pointer;
     margin-top: 10px;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #3a0a1e;
+    transition: background 0.2s;
 }
+.rsvp-btn:hover, .loc-btn:hover { background: orange; }
+
+#status { margin-top: 8px; font-size: 0.9rem; color: #ffd700; }
 
 .flower {
     position: fixed;
     top: -50px;
-    font-size: 18px;
     animation: fall linear infinite;
-    z-index: 999;
+    z-index: 998;
+    pointer-events: none;
 }
 
 @keyframes fall {
-    0% { transform: translateY(-50px); }
-    100% { transform: translateY(100vh); }
+    0%   { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 MUSIC -->
-<audio id="music" autoplay loop muted playsinline preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_82b3e66a39.mp3" type="audio/mpeg">
-  <source src="https://cdn.pixabay.com/audio/2022/11/17/audio_ed78cb0a59.mp3" type="audio/mpeg">
-  <source src="https://cdn.pixabay.com/audio/2023/01/04/audio_2dde668d05.mp3" type="audio/mpeg">
+<!-- Pulsing banner — tap to start music -->
+<div id="music-hint" onclick="startMusic()">
+    🎵 Tap anywhere to play wedding music 🎶
+</div>
+
+<!-- Your own GitHub-hosted music file -->
+<audio id="music" loop>
+    <source src="https://Rajendra-190.github.io/wedding-invite/music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 🎉 HERO -->
-<section>
+<!-- HERO -->
+<section style="margin-top: 52px;">
     <h1>Rajendra ❤️ Gudiya Wedding</h1>
-    <p style="color:rgba(255,255,255,0.7)">With love, we invite you 💍</p>
+    <p style="color:rgba(255,255,255,0.75); margin:6px 0;">With love, we invite you to our special day 💍</p>
+    <p style="font-size:0.85rem; color:rgba(255,255,255,0.5);">Shaadi mein ab sirf...</p>
     <div class="countdown" id="countdown">Loading...</div>
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🔇 Pause Music</button>
 </section>
 
-<!-- 💑 COUPLE -->
-<section> <h2>💑 Rajendra ❤️ Gudiya</h2> <div class="card"> <img src="couple.jpg.jpeg" alt="Couple Photo"> <p><b>Ek nayi zindagi ki shuruaat...</b></p> <p><i style="color:rgba(255,215,0,0.85);">"Do dil, ek bandhan, aur ek nayi kahani..."</i></p> </div> </section>
+<!-- COUPLE -->
+<section>
+    <h2>💑 Rajendra ❤️ Gudiya</h2>
+    <div class="card">
+        <img src="couple.jpg.jpeg" alt="Couple Photo">
+        <p><b>Ek nayi zindagi ki shuruaat...</b></p>
+        <p><i style="color:rgba(255,215,0,0.85);">"Do dil, ek bandhan, aur ek nayi kahani..."</i></p>
+    </div>
+</section>
 
-<!-- 📅 DETAILS -->
+<!-- DETAILS -->
 <section>
     <h2>Wedding Details</h2>
-    <p>📅 29 April 2026</p>
-    <p>📍 Saibasi, Uttar Pradesh</p>
+    <p style="margin:6px 0;">📅 29 April 2026</p>
+    <p style="margin:6px 0;">📍 Saibasi, Fatehpur, Uttar Pradesh</p>
+    <a href="https://www.google.com/maps/place/Saibsi,+Uttar+Pradesh+212663" target="_blank">
+        <button class="loc-btn">View Location 🗺️</button>
+    </a>
 </section>
 
-<!-- 📩 RSVP -->
+<!-- RSVP -->
 <section>
     <h2>RSVP</h2>
     <input type="text" id="name" placeholder="Enter your name"><br>
-    <button onclick="sendData()">Confirm</button>
+    <button class="rsvp-btn" onclick="sendData()">Confirm Attendance ✅</button>
     <p id="status"></p>
+    <p style="margin-top:10px; font-size:0.9rem;">📞 7068606945</p>
 </section>
 
 <script>
-// 🎵 AUTO MUSIC FIX
-var audio = document.getElementById("music");
+var audio    = document.getElementById('music');
+var musicBtn = document.getElementById('musicBtn');
+var hint     = document.getElementById('music-hint');
+var started  = false;
+var isPlaying = false;
 
-// Try autoplay (muted)
-window.addEventListener("load", function () {
-    audio.play().catch(() => {});
-});
+// Auto-start on very first tap or click anywhere on page
+document.addEventListener('click',      tryAutoStart);
+document.addEventListener('touchstart', tryAutoStart);
 
-// Unmute on ANY interaction (no button)
-function unlockAudio() {
-    audio.muted = false;
-    audio.play().catch(() => {});
-
-    document.removeEventListener("click", unlockAudio);
-    document.removeEventListener("touchstart", unlockAudio);
-    document.removeEventListener("scroll", unlockAudio);
+function tryAutoStart() {
+    if (!started) startMusic();
 }
 
-// Multiple triggers
-document.addEventListener("click", unlockAudio);
-document.addEventListener("touchstart", unlockAudio);
-document.addEventListener("scroll", unlockAudio);
+function startMusic() {
+    audio.volume = 0.8;
+    audio.play().then(function () {
+        started   = true;
+        isPlaying = true;
+        hint.style.display   = 'none';
+        musicBtn.textContent = '🔇 Pause Music';
+        // Remove global listeners after success
+        document.removeEventListener('click',      tryAutoStart);
+        document.removeEventListener('touchstart', tryAutoStart);
+    }).catch(function () {
+        hint.textContent = '🎵 Tap this banner to play music 🎶';
+    });
+}
 
-// ⏳ COUNTDOWN
+function toggleMusic() {
+    if (!started) { startMusic(); return; }
+    if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        musicBtn.textContent = '🎵 Play Music';
+    } else {
+        audio.play();
+        isPlaying = true;
+        musicBtn.textContent = '🔇 Pause Music';
+    }
+}
+
+// Countdown
 var weddingDate = new Date("April 29, 2026 17:00:00").getTime();
-
 setInterval(function () {
     var now = new Date().getTime();
-    var distance = weddingDate - now;
-
-    var days = Math.floor(distance / (1000*60*60*24));
-    var hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-
-    document.getElementById("countdown").innerHTML =
-        days + " Days " + hours + " Hrs";
+    var d   = weddingDate - now;
+    if (d < 0) { document.getElementById('countdown').innerHTML = '🎉 The big day is here!'; return; }
+    var days  = Math.floor(d / (1000*60*60*24));
+    var hrs   = Math.floor((d % (1000*60*60*24)) / (1000*60*60));
+    var mins  = Math.floor((d % (1000*60*60)) / (1000*60));
+    document.getElementById('countdown').innerHTML = days + ' Days ' + hrs + ' Hrs ' + mins + ' Min';
 }, 1000);
 
-// 📩 RSVP
+// RSVP
 function sendData() {
-    var name = document.getElementById("name").value;
-
-    if (name === "") {
-        alert("Enter your name");
-        return;
-    }
-
-    document.getElementById("status").innerText = "Thank you 😊";
+    var name = document.getElementById('name').value.trim();
+    if (name === '') { alert('Please enter your name'); return; }
+    document.getElementById('status').innerText = 'Submitting...';
+    fetch("https://script.google.com/macros/s/AKfycbyKEnCvr3pxZfqVo6qyzV-zXIlaDOwND99Casoaky4hsICtEqvTIZ5cCRML99XsMV8X/exec", {
+        method: "POST", body: JSON.stringify({ name: name })
+    }).then(function () {
+        document.getElementById('status').innerText = 'Thank you! 😊 We look forward to seeing you!';
+        document.getElementById('name').value = '';
+    }).catch(function () {
+        document.getElementById('status').innerText = 'Error! Please try again.';
+    });
 }
 
-// 🌸 FLOWERS
-var flowerEmojis = ['🌸', '🌺', '🌼', '🌻']; function createFlower() { var flower = document.createElement('div'); flower.classList.add('flower'); flower.innerHTML = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)]; flower.style.left = Math.random() * window.innerWidth + 'px'; flower.style.animationDuration = (3 + Math.random() * 5) + 's'; flower.style.fontSize = (14 + Math.random() * 14) + 'px'; document.body.appendChild(flower); setTimeout(function () { flower.remove(); }, 8000); } setInterval(createFlower, 600); </script> </body> </html>
+// Falling flowers
+var flowers = ['🌸','🌺','🌼','🌻','🏵️'];
+function createFlower() {
+    var f = document.createElement('div');
+    f.className = 'flower';
+    f.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+    f.style.left              = Math.random() * window.innerWidth + 'px';
+    f.style.animationDuration = (3 + Math.random() * 5) + 's';
+    f.style.fontSize          = (14 + Math.random() * 16) + 'px';
+    document.body.appendChild(f);
+    setTimeout(function () { f.remove(); }, 8000);
+}
+setInterval(createFlower, 600);
+</script>
+
+</body>
+</html>
