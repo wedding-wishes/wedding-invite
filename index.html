@@ -105,14 +105,7 @@ button {
 </section>
 
 <!-- 💑 COUPLE -->
-<section>
-    <h2>💑 Rajendra ❤️ Gudiya</h2>
-    <div class="card">
-        <img src="couple.jpg.jpeg">
-        <p><b>29 April 2026</b></p>
-        <p>Saibasi, Fatehpur</p>
-    </div>
-</section>
+<section> <h2>💑 Rajendra ❤️ Gudiya</h2> <div class="card"> <img src="couple.jpg.jpeg" alt="Couple Photo"> <p><b>Ek nayi zindagi ki shuruaat...</b></p> <p><i style="color:rgba(255,215,0,0.85);">"Do dil, ek bandhan, aur ek nayi kahani..."</i></p> </div> </section>
 
 <!-- 📅 DETAILS -->
 <section>
@@ -180,21 +173,4 @@ function sendData() {
 }
 
 // 🌸 FLOWERS
-function createFlower() {
-    var flower = document.createElement("div");
-    flower.classList.add("flower");
-    flower.innerHTML = "🌸";
-
-    flower.style.left = Math.random() * window.innerWidth + "px";
-    flower.style.animationDuration = (3 + Math.random() * 5) + "s";
-
-    document.body.appendChild(flower);
-
-    setTimeout(() => flower.remove(), 8000);
-}
-
-setInterval(createFlower, 700);
-</script>
-
-</body>
-</html>
+var flowerEmojis = ['🌸', '🌺', '🌼', '🌻']; function createFlower() { var flower = document.createElement('div'); flower.classList.add('flower'); flower.innerHTML = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)]; flower.style.left = Math.random() * window.innerWidth + 'px'; flower.style.animationDuration = (3 + Math.random() * 5) + 's'; flower.style.fontSize = (14 + Math.random() * 14) + 'px'; document.body.appendChild(flower); setTimeout(function () { flower.remove(); }, 8000); } setInterval(createFlower, 600); </script> </body> </html>
