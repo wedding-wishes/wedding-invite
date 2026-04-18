@@ -97,12 +97,13 @@ p {
 
 <body>
 
-<!-- 🎵 MUSIC (AUTOPLAY FIXED) -->
-<audio id="music" autoplay loop muted playsinline>
+<!-- 🎵 MUSIC -->
+<audio id="music" loop playsinline>
   <source src="wedding_invitation_card_music_bollywood_song_arrahman_wedding_ga.m4a" type="audio/mp4">
 </audio>
 
-<p>🔊 Music will start automatically</p>
+<p>🎵 Tap anywhere to start music</p>
+<button onclick="playMusic()">🎵 Play Music</button>
 
 <!-- 🎉 HERO -->
 <section>
@@ -142,20 +143,20 @@ p {
 </section>
 
 <script>
-// 🎵 FORCE UNMUTE AFTER LOAD / INTERACTION
+// 🎵 MUSIC CONTROL
 var music = document.getElementById("music");
 
-// Try unmute after 2 sec
-setTimeout(() => {
-    music.muted = false;
-    music.play().catch(() => {});
-}, 2000);
-
-// Also unmute on any interaction (guaranteed)
-document.addEventListener("click", () => {
-    music.muted = false;
-    music.play().catch(() => {});
+// autoplay after first click anywhere
+document.body.addEventListener("click", function () {
+    if (music.paused) {
+        music.play().catch(e => console.log("Autoplay blocked:", e));
+    }
 }, { once: true });
+
+// manual button
+function playMusic() {
+    music.play().catch(e => alert("Click anywhere first to enable sound"));
+}
 
 // ⏳ COUNTDOWN
 var weddingDate = new Date("April 29, 2026 17:00:00").getTime();
