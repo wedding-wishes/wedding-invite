@@ -11,10 +11,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --gold:#D4AF37;--gold2:#f0d060;--deep:#3a0520;--dark:#1a0010;
-  --petal1:#ff85a1;--petal2:#ffb347;--petal3:#ff6b9d;
-}
+:root{--gold:#D4AF37;--gold2:#f0d060;--deep:#3a0520;--dark:#1a0010}
 html,body{width:100%;min-height:100%;overflow-x:hidden}
 body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-align:center}
 
@@ -24,20 +21,41 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
   background:radial-gradient(ellipse at 50% 30%,#4a0828 0%,#1a0010 70%);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   transition:opacity 0.8s ease;
+  cursor:pointer;
 }
 #screen-envelope.hide{opacity:0;pointer-events:none}
 
-.env-wrap{position:relative;width:280px;height:200px;cursor:pointer;margin-bottom:24px}
+/* Big tap-anywhere glow ring */
+.tap-ring{
+  position:absolute;inset:0;
+  border:4px solid rgba(212,175,55,0.15);
+  border-radius:0;
+  animation:ringPulse 2s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes ringPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+
+.env-top-text{
+  color:var(--gold);font-size:1.1rem;letter-spacing:2px;
+  margin-bottom:6px;font-weight:300;
+}
+.env-top-hindi{
+  color:rgba(255,255,255,0.9);font-size:1.4rem;font-weight:600;
+  margin-bottom:24px;line-height:1.4;
+}
+
+/* Envelope */
+.env-wrap{position:relative;width:260px;height:185px;margin-bottom:10px}
 .env-body{
   position:absolute;inset:0;
   background:linear-gradient(160deg,#7a1535,#4a0820);
   border-radius:6px 6px 14px 14px;
   border:2px solid var(--gold);
-  box-shadow:0 0 40px rgba(212,175,55,0.25);
+  box-shadow:0 0 50px rgba(212,175,55,0.3),0 0 100px rgba(212,175,55,0.1);
   overflow:hidden;
 }
 .env-flap{
-  position:absolute;top:0;left:0;right:0;height:110px;
+  position:absolute;top:0;left:0;right:0;height:105px;
   background:linear-gradient(170deg,#9a1d42,#6a1030);
   clip-path:polygon(0 0,100% 0,50% 100%);
   border-bottom:1px solid var(--gold);
@@ -47,54 +65,80 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
 }
 .env-flap.open{transform:rotateX(180deg)}
 .env-sides-left{
-  position:absolute;bottom:0;left:0;
-  width:51%;height:100%;
+  position:absolute;bottom:0;left:0;width:51%;height:100%;
   background:linear-gradient(135deg,#8a1840 60%,transparent);
   clip-path:polygon(0 100%,100% 100%,0 0);
 }
 .env-sides-right{
-  position:absolute;bottom:0;right:0;
-  width:51%;height:100%;
+  position:absolute;bottom:0;right:0;width:51%;height:100%;
   background:linear-gradient(225deg,#6a1030 60%,transparent);
   clip-path:polygon(100% 100%,0 100%,100% 0);
 }
 .env-seal{
   position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);
-  width:48px;height:48px;border-radius:50%;
+  width:50px;height:50px;border-radius:50%;
   background:linear-gradient(135deg,var(--gold),#a07820);
   border:2px solid var(--gold2);
   display:flex;align-items:center;justify-content:center;
-  font-size:20px;z-index:3;
-  box-shadow:0 0 14px rgba(212,175,55,0.4);
+  font-size:22px;z-index:3;
+  box-shadow:0 0 16px rgba(212,175,55,0.5);
   animation:sealPulse 2s infinite;
+  transition:opacity 0.4s;
 }
-@keyframes sealPulse{0%,100%{box-shadow:0 0 14px rgba(212,175,55,0.4)}50%{box-shadow:0 0 28px rgba(212,175,55,0.7)}}
-
+@keyframes sealPulse{0%,100%{box-shadow:0 0 16px rgba(212,175,55,0.5)}50%{box-shadow:0 0 32px rgba(212,175,55,0.9)}}
 .env-card-peek{
   position:absolute;left:10%;right:10%;
   background:linear-gradient(160deg,#fff9f0,#fff0e8);
   border-radius:4px;
   display:flex;align-items:center;justify-content:center;
   font-size:11px;color:#8a3040;font-weight:600;letter-spacing:1px;
-  transition:bottom 1s cubic-bezier(0.4,0,0.2,1), height 1s cubic-bezier(0.4,0,0.2,1);
-  bottom:6px;height:60px;z-index:1;overflow:hidden;
+  transition:bottom 1s cubic-bezier(0.4,0,0.2,1),height 1s cubic-bezier(0.4,0,0.2,1);
+  bottom:6px;height:55px;z-index:1;overflow:hidden;
 }
-.env-card-peek.rising{bottom:60px;height:100px}
-.env-card-peek span{opacity:0.8}
+.env-card-peek.rising{bottom:55px;height:90px}
+.env-card-peek span{opacity:0.7}
 
-.tap-hint{color:var(--gold);font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;animation:blink 1.8s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
-.env-title{color:var(--gold);font-size:1.3rem;margin-bottom:6px;font-weight:300;letter-spacing:2px}
-.env-sub{color:rgba(255,255,255,0.5);font-size:0.75rem;letter-spacing:1px;margin-bottom:28px}
-
-/* falling petals */
-.petal{position:fixed;top:-40px;pointer-events:none;z-index:50;animation:petalFall linear infinite}
-@keyframes petalFall{
-  0%{transform:translateY(-40px) rotate(0deg);opacity:1}
-  100%{transform:translateY(110vh) rotate(720deg);opacity:0}
+/* Big bouncing hand */
+.big-hand{
+  font-size:3.5rem;
+  display:block;
+  margin:16px auto 4px;
+  animation:handBounce 1s ease-in-out infinite;
+  line-height:1;
+}
+@keyframes handBounce{
+  0%,100%{transform:translateY(0) rotate(-10deg)}
+  50%{transform:translateY(-12px) rotate(10deg)}
 }
 
-/* ── SCREEN 2: INVITATION CARD ── */
+/* Arrow */
+.tap-arrow{
+  color:var(--gold);font-size:2rem;
+  animation:arrowBounce 0.8s ease-in-out infinite;
+  display:block;margin:0 auto 6px;
+}
+@keyframes arrowBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Hindi + English hint */
+.hint-hindi{
+  font-size:1.5rem;font-weight:700;
+  color:#fff;
+  background:rgba(212,175,55,0.18);
+  border:2px solid rgba(212,175,55,0.5);
+  border-radius:14px;
+  padding:10px 28px;
+  margin:0 auto;
+  display:inline-block;
+  animation:hintGlow 1.5s ease-in-out infinite;
+}
+@keyframes hintGlow{0%,100%{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.5)}50%{background:rgba(212,175,55,0.35);border-color:var(--gold)}}
+.hint-english{
+  color:rgba(255,255,255,0.5);font-size:0.75rem;
+  letter-spacing:2px;text-transform:uppercase;
+  margin-top:6px;display:block;
+}
+
+/* ── SCREEN 2: CARD ── */
 #screen-card{
   min-height:100vh;
   background:radial-gradient(ellipse at 50% 0%,#5a0f2e 0%,#1a0010 60%);
@@ -105,20 +149,12 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
 }
 #screen-card.show{opacity:1;transform:scale(1);pointer-events:all}
 
-/* Header */
-.card-header{
-  padding:32px 16px 16px;
-  position:relative;
-}
+.card-header{padding:32px 16px 16px}
 .ornament{color:var(--gold);font-size:1.6rem;letter-spacing:8px;display:block;margin-bottom:6px}
-.main-title{
-  font-size:2rem;color:var(--gold);font-weight:300;
-  letter-spacing:3px;line-height:1.3;margin:8px 0 4px;
-}
+.main-title{font-size:2rem;color:var(--gold);font-weight:300;letter-spacing:3px;line-height:1.3;margin:8px 0 4px}
 .main-sub{color:rgba(255,255,255,0.6);font-size:0.78rem;letter-spacing:3px;text-transform:uppercase}
 .divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto}
 
-/* Music bar */
 .music-bar{
   display:flex;align-items:center;justify-content:center;gap:10px;
   padding:10px 20px;margin:0 auto 4px;max-width:320px;
@@ -126,13 +162,9 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
   border-radius:30px;cursor:pointer;transition:background 0.2s;
 }
 .music-bar:hover{background:rgba(212,175,55,0.14)}
-.music-icon{font-size:16px}
 .music-label{color:var(--gold);font-size:0.8rem;letter-spacing:1px}
 .music-waves{display:flex;gap:3px;align-items:center;height:16px}
-.music-waves span{
-  display:block;width:3px;background:var(--gold);border-radius:2px;
-  animation:wave 0.8s ease-in-out infinite;
-}
+.music-waves span{display:block;width:3px;background:var(--gold);border-radius:2px;animation:wave 0.8s ease-in-out infinite}
 .music-waves span:nth-child(1){height:6px;animation-delay:0s}
 .music-waves span:nth-child(2){height:12px;animation-delay:0.15s}
 .music-waves span:nth-child(3){height:8px;animation-delay:0.3s}
@@ -141,45 +173,24 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
 .music-waves.paused span{animation:none;height:4px}
 @keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(0.4)}}
 
-/* Countdown */
-.countdown-wrap{
-  display:flex;justify-content:center;gap:12px;margin:20px auto;
-  padding:0 10px;flex-wrap:wrap;
-}
-.cd-box{
-  background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.25);
-  border-radius:10px;padding:12px 16px;min-width:70px;
-}
+.countdown-wrap{display:flex;justify-content:center;gap:10px;margin:20px auto;padding:0 10px;flex-wrap:wrap}
+.cd-box{background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.25);border-radius:10px;padding:12px 14px;min-width:68px}
 .cd-num{font-size:1.8rem;font-weight:300;color:var(--gold);display:block;line-height:1}
 .cd-lbl{font-size:0.62rem;color:rgba(255,255,255,0.45);letter-spacing:2px;text-transform:uppercase;margin-top:4px;display:block}
 
-/* Photo card */
 .photo-section{padding:10px 16px 20px}
-.photo-frame{
-  position:relative;margin:0 auto;max-width:300px;
-  border:2px solid var(--gold);border-radius:16px;overflow:hidden;
-  box-shadow:0 0 30px rgba(212,175,55,0.2);
-}
+.photo-frame{position:relative;margin:0 auto;max-width:300px;border:2px solid var(--gold);border-radius:16px;overflow:hidden;box-shadow:0 0 30px rgba(212,175,55,0.2)}
 .photo-frame img{width:100%;display:block;border-radius:14px}
-.photo-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(26,0,16,0.85) 0%,transparent 50%);
-  border-radius:14px;display:flex;align-items:flex-end;padding:16px;
-}
+.photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,0,16,0.85) 0%,transparent 50%);border-radius:14px;display:flex;align-items:flex-end;padding:16px}
 .photo-quote{color:rgba(255,255,255,0.85);font-size:0.85rem;font-style:italic;line-height:1.5;text-align:left}
 .photo-quote em{color:var(--gold)}
 
-/* Info sections */
-.info-card{
-  background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.2);
-  border-radius:16px;margin:12px auto;max-width:360px;padding:20px 16px;
-}
+.info-card{background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.2);border-radius:16px;margin:12px auto;max-width:360px;padding:20px 16px}
 .info-card h2{color:var(--gold);font-size:1rem;font-weight:400;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
 .info-row{display:flex;align-items:center;gap:10px;margin:8px 0;justify-content:center}
 .info-row .ico{font-size:16px;flex-shrink:0}
 .info-row p{color:rgba(255,255,255,0.8);font-size:0.88rem}
 
-/* Buttons */
 .btn-gold{
   display:inline-block;padding:11px 28px;
   background:linear-gradient(135deg,var(--gold),#a07820);
@@ -187,21 +198,21 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
   border:none;border-radius:30px;cursor:pointer;margin-top:12px;
   transition:transform 0.2s,opacity 0.2s;text-decoration:none;
 }
-.btn-gold:hover{transform:scale(1.04);opacity:0.92}
+.btn-gold:hover{transform:scale(1.04)}
 
-/* RSVP */
 .rsvp-input{
   display:block;margin:10px auto 0;padding:10px 16px;
   background:rgba(255,255,255,0.08);border:1px solid rgba(212,175,55,0.3);
   border-radius:10px;color:#fff;font-size:0.9rem;width:220px;outline:none;
-  transition:border-color 0.2s;
 }
 .rsvp-input:focus{border-color:var(--gold)}
 .rsvp-input::placeholder{color:rgba(255,255,255,0.35)}
 #status{margin-top:10px;font-size:0.85rem;color:var(--gold);min-height:20px}
-
-/* Footer */
 .footer{padding:24px 16px;color:rgba(255,255,255,0.25);font-size:0.72rem;letter-spacing:1px}
+
+/* petals */
+.petal{position:fixed;top:-40px;pointer-events:none;z-index:50;animation:petalFall linear infinite}
+@keyframes petalFall{0%{transform:translateY(-40px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
 </style>
 </head>
 <body>
@@ -211,29 +222,32 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ══════════ SCREEN 1: ENVELOPE ══════════ -->
-<div id="screen-envelope">
-  <div class="env-title">You are cordially invited</div>
-  <div class="env-sub">to the wedding celebration of</div>
+<!-- ══════════ SCREEN 1 ══════════ -->
+<div id="screen-envelope" onclick="openEnvelope()">
+  <div class="tap-ring"></div>
 
-  <div class="env-wrap" id="envWrap" onclick="openEnvelope()">
+  <div class="env-top-hindi">शादी का निमंत्रण 💍</div>
+  <div class="env-top-text">Rajendra ❤️ Gudiya</div>
+
+  <div class="env-wrap">
     <div class="env-body">
       <div class="env-sides-left"></div>
       <div class="env-sides-right"></div>
       <div class="env-flap" id="envFlap"></div>
       <div class="env-seal" id="envSeal">💍</div>
-      <div class="env-card-peek" id="envPeek">
-        <span>RAJENDRA &amp; GUDIYA</span>
-      </div>
+      <div class="env-card-peek" id="envPeek"><span>WEDDING INVITATION</span></div>
     </div>
   </div>
 
-  <div class="tap-hint" id="tapHint">✦ Tap the envelope to open ✦</div>
+  <!-- Big obvious tap prompt -->
+  <span class="big-hand">👆</span>
+  <span class="tap-arrow">▼</span>
+  <span class="hint-hindi">यहाँ दबाएँ</span>
+  <span class="hint-english">Tap anywhere to open</span>
 </div>
 
-<!-- ══════════ SCREEN 2: CARD ══════════ -->
+<!-- ══════════ SCREEN 2 ══════════ -->
 <div id="screen-card">
-
   <div class="card-header">
     <span class="ornament">✦ ❁ ✦</span>
     <div class="main-title">Rajendra<br><span style="color:rgba(255,255,255,0.4);font-size:1.2rem">❤️</span><br>Gudiya</div>
@@ -241,16 +255,14 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
     <div class="divider"></div>
   </div>
 
-  <!-- Music control -->
   <div class="music-bar" onclick="toggleMusic()" id="musicBar">
-    <span class="music-icon">🎵</span>
+    <span style="font-size:16px">🎵</span>
     <span class="music-label" id="musicLabel">Wedding Music</span>
     <div class="music-waves paused" id="musicWaves">
       <span></span><span></span><span></span><span></span><span></span>
     </div>
   </div>
 
-  <!-- Countdown -->
   <div class="countdown-wrap">
     <div class="cd-box"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl">Days</span></div>
     <div class="cd-box"><span class="cd-num" id="cd-h">--</span><span class="cd-lbl">Hours</span></div>
@@ -258,12 +270,11 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
     <div class="cd-box"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl">Seconds</span></div>
   </div>
 
-  <!-- Couple photo -->
   <div class="photo-section">
     <div class="divider"></div>
     <div style="color:var(--gold);font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px">💑 Together Forever</div>
     <div class="photo-frame">
-      <img src="couple.jpg.jpeg" alt="Rajendra & Gudiya" onerror="this.parentElement.style.minHeight='200px';this.style.display='none'">
+      <img src="couple.jpg.jpeg" alt="Rajendra & Gudiya" onerror="this.parentElement.style.minHeight='180px';this.style.display='none'">
       <div class="photo-overlay">
         <div class="photo-quote">"Do dil, ek bandhan,<br><em>aur ek nayi kahani..."</em></div>
       </div>
@@ -271,22 +282,20 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
     <div style="margin-top:12px;color:rgba(255,255,255,0.55);font-size:0.82rem;font-style:italic">Ek nayi zindagi ki shuruaat...</div>
   </div>
 
-  <!-- Wedding Details -->
   <div class="info-card">
     <h2>✦ Wedding Details ✦</h2>
     <div class="info-row"><span class="ico">📅</span><p><strong>29 April 2026</strong></p></div>
     <div class="info-row"><span class="ico">🕔</span><p>5:00 PM onwards</p></div>
-    <div class="info-row"><span class="ico">📍</span><p>Saibasi, Fatehpur,<br>Uttar Pradesh</p></div>
+    <div class="info-row"><span class="ico">📍</span><p>Saibasi, Fatehpur, Uttar Pradesh</p></div>
     <a href="https://www.google.com/maps/place/Saibsi,+Uttar+Pradesh+212663" target="_blank">
       <button class="btn-gold">🗺️ View on Map</button>
     </a>
   </div>
 
-  <!-- RSVP -->
   <div class="info-card">
     <h2>✦ RSVP ✦</h2>
     <p style="color:rgba(255,255,255,0.5);font-size:0.8rem;margin-bottom:6px">Kindly confirm your attendance</p>
-    <input class="rsvp-input" type="text" id="name" placeholder="Your name">
+    <input class="rsvp-input" type="text" id="name" placeholder="Apna naam likhein / Your name">
     <button class="btn-gold" onclick="sendData()" style="margin-top:14px">Confirm Attendance ✅</button>
     <p id="status"></p>
     <div class="divider" style="margin-top:16px"></div>
@@ -301,7 +310,6 @@ var music = document.getElementById('music');
 var isPlaying = false;
 var cardOpened = false;
 
-// ── ENVELOPE OPEN ──
 function openEnvelope() {
   if (cardOpened) return;
   cardOpened = true;
@@ -309,108 +317,75 @@ function openEnvelope() {
   var flap = document.getElementById('envFlap');
   var peek = document.getElementById('envPeek');
   var seal = document.getElementById('envSeal');
-  var hint = document.getElementById('tapHint');
 
-  hint.textContent = '✦ Opening... ✦';
   seal.style.opacity = '0';
   seal.style.transition = 'opacity 0.4s';
-
-  setTimeout(function() { flap.classList.add('open'); }, 200);
-  setTimeout(function() { peek.classList.add('rising'); }, 800);
-  setTimeout(function() { revealCard(); }, 1600);
+  setTimeout(function(){ flap.classList.add('open'); }, 200);
+  setTimeout(function(){ peek.classList.add('rising'); }, 800);
+  setTimeout(function(){ revealCard(); }, 1600);
 }
 
 function revealCard() {
-  var env = document.getElementById('screen-envelope');
+  var env  = document.getElementById('screen-envelope');
   var card = document.getElementById('screen-card');
-
   env.classList.add('hide');
   card.classList.add('show');
-
-  // Start music on reveal
   music.volume = 0.75;
-  music.play().then(function() {
-    isPlaying = true;
-    updateMusicUI();
-  }).catch(function() {});
-
-  setTimeout(function() { env.style.display = 'none'; }, 900);
+  music.play().then(function(){ isPlaying = true; updateMusicUI(); }).catch(function(){});
+  setTimeout(function(){ env.style.display='none'; }, 900);
 }
 
-// ── MUSIC ──
 function toggleMusic() {
   if (!isPlaying) {
-    music.play().then(function() { isPlaying = true; updateMusicUI(); }).catch(function(){});
+    music.play().then(function(){ isPlaying=true; updateMusicUI(); }).catch(function(){});
   } else {
-    music.pause();
-    isPlaying = false;
-    updateMusicUI();
+    music.pause(); isPlaying=false; updateMusicUI();
   }
 }
-
 function updateMusicUI() {
-  var waves = document.getElementById('musicWaves');
-  var label = document.getElementById('musicLabel');
-  if (isPlaying) {
-    waves.classList.remove('paused');
-    label.textContent = 'Now Playing';
-  } else {
-    waves.classList.add('paused');
-    label.textContent = 'Play Music';
-  }
+  var w = document.getElementById('musicWaves');
+  var l = document.getElementById('musicLabel');
+  if (isPlaying){ w.classList.remove('paused'); l.textContent='Now Playing'; }
+  else { w.classList.add('paused'); l.textContent='Play Music'; }
 }
 
-// ── COUNTDOWN ──
 var weddingDate = new Date("April 29, 2026 17:00:00").getTime();
-function tick() {
-  var now = new Date().getTime();
-  var d = weddingDate - now;
-  if (d < 0) {
-    document.getElementById('cd-d').textContent = '0';
-    document.getElementById('cd-h').textContent = '0';
-    document.getElementById('cd-m').textContent = '0';
-    document.getElementById('cd-s').textContent = '0';
-    return;
-  }
-  document.getElementById('cd-d').textContent = Math.floor(d / 86400000);
-  document.getElementById('cd-h').textContent = Math.floor((d % 86400000) / 3600000);
-  document.getElementById('cd-m').textContent = Math.floor((d % 3600000) / 60000);
-  document.getElementById('cd-s').textContent = Math.floor((d % 60000) / 1000);
+function tick(){
+  var d = weddingDate - new Date().getTime();
+  if(d<0) d=0;
+  document.getElementById('cd-d').textContent = Math.floor(d/86400000);
+  document.getElementById('cd-h').textContent = Math.floor((d%86400000)/3600000);
+  document.getElementById('cd-m').textContent = Math.floor((d%3600000)/60000);
+  document.getElementById('cd-s').textContent = Math.floor((d%60000)/1000);
 }
-tick();
-setInterval(tick, 1000);
+tick(); setInterval(tick,1000);
 
-// ── RSVP ──
-function sendData() {
-  var name = document.getElementById('name').value.trim();
-  if (!name) { alert('Please enter your name'); return; }
-  document.getElementById('status').innerText = 'Submitting...';
-  fetch("https://script.google.com/macros/s/AKfycbyKEnCvr3pxZfqVo6qyzV-zXIlaDOwND99Casoaky4hsICtEqvTIZ5cCRML99XsMV8X/exec", {
-    method: "POST", body: JSON.stringify({ name: name })
-  }).then(function() {
-    document.getElementById('status').innerText = 'Thank you, ' + name + '! See you on the big day 😊';
-    document.getElementById('name').value = '';
-  }).catch(function() {
-    document.getElementById('status').innerText = 'Error! Please try again.';
+function sendData(){
+  var name=document.getElementById('name').value.trim();
+  if(!name){alert('Please enter your name');return;}
+  document.getElementById('status').innerText='Submitting...';
+  fetch("https://script.google.com/macros/s/AKfycbyKEnCvr3pxZfqVo6qyzV-zXIlaDOwND99Casoaky4hsICtEqvTIZ5cCRML99XsMV8X/exec",{
+    method:"POST",body:JSON.stringify({name:name})
+  }).then(function(){
+    document.getElementById('status').innerText='Thank you, '+name+'! See you on the big day 😊';
+    document.getElementById('name').value='';
+  }).catch(function(){
+    document.getElementById('status').innerText='Error! Please try again.';
   });
 }
 
-// ── FALLING PETALS ──
-var petalColors = ['#ff85a1','#ffb347','#ff6b9d','#ffd700','#ff9ecd'];
-var petalShapes = ['🌸','🌺','🌼','🌻','✿','❀'];
-function spawnPetal() {
-  var p = document.createElement('div');
-  p.className = 'petal';
-  p.innerHTML = petalShapes[Math.floor(Math.random() * petalShapes.length)];
-  p.style.left = Math.random() * window.innerWidth + 'px';
-  p.style.fontSize = (10 + Math.random() * 12) + 'px';
-  p.style.animationDuration = (5 + Math.random() * 7) + 's';
-  p.style.opacity = 0.6 + Math.random() * 0.4;
+var petalShapes=['🌸','🌺','🌼','🌻','❀'];
+function spawnPetal(){
+  var p=document.createElement('div');
+  p.className='petal';
+  p.innerHTML=petalShapes[Math.floor(Math.random()*petalShapes.length)];
+  p.style.left=Math.random()*window.innerWidth+'px';
+  p.style.fontSize=(10+Math.random()*12)+'px';
+  p.style.animationDuration=(5+Math.random()*7)+'s';
   document.body.appendChild(p);
-  setTimeout(function() { p.remove(); }, 12000);
+  setTimeout(function(){p.remove();},12000);
 }
-setInterval(spawnPetal, 700);
+setInterval(spawnPetal,700);
 </script>
-
 </body>
 </html>
